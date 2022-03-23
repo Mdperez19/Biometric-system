@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tex": "latex",
+        "stdio.h": "c",
+        "vault.h": "c"
+    }
+}
