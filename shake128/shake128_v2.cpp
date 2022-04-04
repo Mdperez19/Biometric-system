@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <inttypes.h>
 #include <string.h>
 #include <iostream>
@@ -240,35 +241,48 @@ void shake128(vector<u_char> in, int d, vector<u_char> &out)
 
 int main(int argc, char * argv[])
 {
-	if(argc != 2)
+	if(argc != 3)
 	{
 		printf("Wrong parameters\n");
 		return 1;
 	}
 	
-	int d_in_bytes = atoi(argv[1]);
+	//int d_in_bytes = atoi(argv[1]);
 	vector<u_char> in;
 	vector<u_char> out;
 
-	char c;
-	int contador=0;
-	 while ((c = getchar()) != EOF){
-		in.push_back((char)c);
-		printf("%c",(unsigned char)c);
-		contador++;
-	}
-	printf("%d\n",contador);
-	/* while (cin.get(c))
-	{
-		in.push_back(c);
-	} */
-	
-	shake128(in, d_in_bytes, out);
-	/* for(int i=0; i<d_in_bytes; ++i)
-    	cout << std::setfill('0') << std::setw(2)<< std::hex << (int)out[i];
-	cout<<endl; */
+	char nombre[100];
+    int outputByteLen=atoi(argv[1]);
+    // Se adquiere el nombre del archivo a comprimir por medio de los argumentos en la ejecucion
+    strcpy(nombre, argv[2]);
 
-	for(int i=0; i<d_in_bytes; ++i)
+    // Se abre el archivo a comprimir con modo de lectura de bytes
+    FILE *archivo = fopen(nombre, "rb");
+    // Se posiciona en la posicion 0 y busca el final
+    fseek(archivo, 0, SEEK_END);
+    unsigned int tamano_archivo = ftell(archivo);
+    // Se posiciona de nuevo en la posicion 0
+    fseek(archivo, 0, SEEK_SET);
+
+    printf("Tamano de archivo original: %lld bytes\n", tamano_archivo);
+
+    // Se crea un arreglo del tamano del archivo para almacenar sus bytes
+    unsigned char *datos = (unsigned char *)malloc(tamano_archivo);
+    unsigned char *output = (unsigned char *)malloc(tamano_archivo);
+    // Se pone todo el arreglo en 0
+    memset(datos, 0, tamano_archivo);
+    memset(output, 0, tamano_archivo);
+    // Se leen y almacenan los bytes del archivo en el arreglo de datos
+    fread(datos, 1, tamano_archivo, archivo);
+    // Se cierra el archivo a comprimir
+    fclose(archivo);
+
+    in.assign(datos,datos+tamano_archivo);
+	for(unsigned char carac: in){
+        printf("%c",carac);
+    }
+	shake128(in, outputByteLen, out);
+	for(int i=0; i<outputByteLen; ++i)
 		printf("%02x",(int)out[i]);
 	printf("\n");
 	return 0;

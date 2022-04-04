@@ -11,6 +11,7 @@
         "iosfwd": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "utility": "cpp"
     }
 }

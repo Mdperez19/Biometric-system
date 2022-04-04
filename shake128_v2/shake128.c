@@ -400,7 +400,7 @@ void shake128_squeezeblocks(unsigned char *output, unsigned long long nblocks, u
 void shake128(unsigned char *output, unsigned int outputByteLen, const unsigned char *input, unsigned int inputByteLen)
 {
   uint64_t s[25];
-  assert(!(outputByteLen%SHAKE128_RATE));
+  //assert(!(outputByteLen%SHAKE128_RATE));
   shake128_absorb(s, input, inputByteLen);
   shake128_squeezeblocks(output, outputByteLen/SHAKE128_RATE, s);
 }
