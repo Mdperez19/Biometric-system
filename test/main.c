@@ -16,6 +16,8 @@ int main(int argc, char const *argv[])
     // salida para el shake128
     unsigned char output[pqcrystals_kyber1024_BYTES] = "";
     unsigned char res_Kyber1024[pqcrystals_kyber1024_ref_CIPHERTEXTBYTES] = "";
+
+    //?Adquision de datos del vault
     // Se adquiere el nombre del archivo a comprimir por medio de los argumentos en la ejecucion
     strcpy(nombre, argv[1]);
 
@@ -53,7 +55,7 @@ int main(int argc, char const *argv[])
         printf("%c",(int)vault[i]);
     } */
 
-    // se obtiene el shake128 del vault
+    //? se obtiene el shake128 del vault
     shake128(output, pqcrystals_kyber1024_BYTES, vault, tamano_archivo);
 
     for (int i = 0; i < pqcrystals_kyber1024_BYTES; i++)
@@ -64,7 +66,7 @@ int main(int argc, char const *argv[])
     }
     printf("shake128: %s\n", res_shake128);
 
-    // Kyber
+    //? Kyber
     pqcrystals_kyber1024_ref_keypair(pk, sk);               // KeyGen
     pqcrystals_kyber1024_ref_enc(ct, ss, pk, res_shake128); // Encapsulate
 
@@ -83,7 +85,7 @@ int main(int argc, char const *argv[])
     }
     printf("\n");
 
-    // AES 256
+    //? AES 256
     int resultado = encrypt(vault, strlen((unsigned char *)vault), ss, ss, ciphertext);
     printf("AES 256: ");
     for (int i = 0; i < tamano_archivo; i++)

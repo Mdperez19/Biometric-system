@@ -40,7 +40,7 @@ int crypto_kem_keypair(uint8_t *pk,
 *
 * Description: Generates cipher text and shared
 *              secret for given public key
-*
+*?
 * Arguments:   - uint8_t *ct: pointer to output cipher text
 *                (an already allocated array of KYBER_CIPHERTEXTBYTES bytes)
 *              - uint8_t *ss: pointer to output shared secret
@@ -59,9 +59,10 @@ int crypto_kem_enc(uint8_t *ct,
   /* Will contain key, coins */
   uint8_t kr[2*KYBER_SYMBYTES];
 
-  //msg fijo revisar
+  //!msg fijo revisar
   memcpy(buf, res_shake128, KYBER_SYMBYTES);
   //randombytes(buf, KYBER_SYMBYTES);
+
   /* Don't release system RNG output */
   hash_h(buf, buf, KYBER_SYMBYTES);
 

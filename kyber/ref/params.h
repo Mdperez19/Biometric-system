@@ -2,7 +2,7 @@
 #define PARAMS_H
 
 #ifndef KYBER_K
-#define KYBER_K 4	/* Change this for different security strengths */ // modificado estaba en 3
+#define KYBER_K 4	/* Change this for different security strengths */ //! modificado: estaba en 3
 #endif
 
 //#define KYBER_90S	/* Uncomment this if you want the 90S variant */
