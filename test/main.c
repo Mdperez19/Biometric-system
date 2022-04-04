@@ -8,14 +8,14 @@
 int main(int argc, char const *argv[])
 {
     char nombre[1000];
-    unsigned char pk[pqcrystals_kyber1024_ref_PUBLICKEYBYTES]="";
-    unsigned char sk[pqcrystals_kyber1024_ref_SECRETKEYBYTES]="";
-    unsigned char ss[pqcrystals_kyber1024_ref_BYTES]=""; 
-    unsigned char ct[pqcrystals_kyber1024_ref_CIPHERTEXTBYTES]="";
-    unsigned char res_shake128[pqcrystals_kyber1024_BYTES]="";
-    //salida para el shake128
-    unsigned char output[pqcrystals_kyber1024_BYTES]="";
-    unsigned char res_Kyber1024[pqcrystals_kyber1024_ref_CIPHERTEXTBYTES]="";
+    unsigned char pk[pqcrystals_kyber1024_ref_PUBLICKEYBYTES] = "";
+    unsigned char sk[pqcrystals_kyber1024_ref_SECRETKEYBYTES] = "";
+    unsigned char ss[pqcrystals_kyber1024_ref_BYTES] = "";
+    unsigned char ct[pqcrystals_kyber1024_ref_CIPHERTEXTBYTES] = "";
+    unsigned char res_shake128[pqcrystals_kyber1024_BYTES] = "";
+    // salida para el shake128
+    unsigned char output[pqcrystals_kyber1024_BYTES] = "";
+    unsigned char res_Kyber1024[pqcrystals_kyber1024_ref_CIPHERTEXTBYTES] = "";
     // Se adquiere el nombre del archivo a comprimir por medio de los argumentos en la ejecucion
     strcpy(nombre, argv[1]);
 
@@ -36,9 +36,9 @@ int main(int argc, char const *argv[])
 
     // Se crea un arreglo del tamano del archivo para almacenar sus bytes
     unsigned char *vault = malloc(tamano_archivo);
-// Y otro para el texto cifrado del aes 256
+    // Y otro para el texto cifrado del aes 256
     unsigned char *ciphertext = malloc(tamano_archivo);
-    
+
     // Se pone todo el arreglo en 0
     memset(vault, 0, tamano_archivo);
     memset(output, 0, pqcrystals_kyber1024_BYTES);
@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
         printf("%c",(int)vault[i]);
     } */
 
-    //se obtiene el shake128 del vault
+    // se obtiene el shake128 del vault
     shake128(output, pqcrystals_kyber1024_BYTES, vault, tamano_archivo);
 
     for (int i = 0; i < pqcrystals_kyber1024_BYTES; i++)
@@ -64,41 +64,42 @@ int main(int argc, char const *argv[])
     }
     printf("shake128: %s\n", res_shake128);
 
-    //Kyber
-    pqcrystals_kyber1024_ref_keypair(pk, sk); //KeyGen
-    pqcrystals_kyber1024_ref_enc(ct, ss, pk,res_shake128); // Encapsulate
+    // Kyber
+    pqcrystals_kyber1024_ref_keypair(pk, sk);               // KeyGen
+    pqcrystals_kyber1024_ref_enc(ct, ss, pk, res_shake128); // Encapsulate
 
     /* for(int j=0;j<pqcrystals_kyber1024_ref_CIPHERTEXTBYTES;j++){
         char byte[3];
         sprintf(byte, "%02x", ct[j]);
         strcat(res_Kyber1024, byte);
-    } 
+    }
 
    printf("Kyber1024: %s\n", res_Kyber1024);
    */
     printf("Kyber1024 ss: ");
-    for(int j=0;j<pqcrystals_kyber1024_ref_BYTES;j++){
-        printf("%02x",ss[j]);
-    } 
+    for (int j = 0; j < pqcrystals_kyber1024_ref_BYTES; j++)
+    {
+        printf("%02x", ss[j]);
+    }
     printf("\n");
 
-    //AES 256
-    int resultado=encrypt(vault, strlen((unsigned char *)vault), ss, ss, ciphertext);
+    // AES 256
+    int resultado = encrypt(vault, strlen((unsigned char *)vault), ss, ss, ciphertext);
     printf("AES 256: ");
     for (int i = 0; i < tamano_archivo; i++)
     {
-        printf("%02x",ciphertext[i]);
+        printf("%02x", ciphertext[i]);
     }
     printf("\n\n");
 
-    printf("%d\n",resultado);
+    printf("%d\n", resultado);
 
-    //descifrado
-    int dlen=decrypt(ciphertext, resultado, ss, ss, vault);
-    printf("\t%d\n",dlen);
+    // descifrado
+    int dlen = decrypt(ciphertext, resultado, ss, ss, vault);
+    printf("\t%d\n", dlen);
     for (int i = 0; i < resultado; i++)
     {
-        printf("%c",(int)vault[i]);
+        printf("%c", (int)vault[i]);
     }
     return 0;
 }
