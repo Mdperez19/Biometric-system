@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "vault.h": "c",
+        "fips202.h": "c",
+        "api.h": "c",
+        "randombytes.h": "c"
+    }
+}

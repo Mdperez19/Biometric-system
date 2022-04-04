@@ -4,10 +4,10 @@ CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
 NISTFLAGS += -Wno-unused-result -O3 -fomit-frame-pointer
 RM = /bin/rm
 
-SOURCES = kex.c kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c
+SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c
 SOURCESKECCAK = $(SOURCES) fips202.c symmetric-shake.c
 SOURCESNINETIES = $(SOURCES) sha256.c sha512.c aes256ctr.c symmetric-aes.c
-HEADERS = params.h kex.h kem.h indcpa.h polyvec.h poly.h ntt.h cbd.h reduce.c verify.h symmetric.h
+HEADERS = params.h kem.h indcpa.h polyvec.h poly.h ntt.h cbd.h reduce.c verify.h symmetric.h
 HEADERSKECCAK = $(HEADERS) fips202.h
 HEADERSNINETIES = $(HEADERS) aes256ctr.h sha2.h
 
@@ -17,18 +17,12 @@ all: \
   test_kyber512 \
   test_kyber768 \
   test_kyber1024 \
-  test_kex512 \
-  test_kex768 \
-  test_kex1024 \
   test_vectors512 \
   test_vectors768 \
   test_vectors1024 \
   test_kyber512-90s \
   test_kyber768-90s \
   test_kyber1024-90s \
-  test_kex512-90s \
-  test_kex768-90s \
-  test_kex1024-90s \
   test_vectors512-90s \
   test_vectors768-90s \
   test_vectors1024-90s
@@ -79,15 +73,6 @@ test_kyber768: $(SOURCESKECCAK) $(HEADERSKECCAK) test_kyber.c randombytes.c
 test_kyber1024: $(SOURCESKECCAK) $(HEADERSKECCAK) test_kyber.c randombytes.c
 	$(CC) $(CFLAGS) -DKYBER_K=4 $(SOURCESKECCAK) randombytes.c test_kyber.c -o test_kyber1024
 
-test_kex512: $(SOURCESKECCAK) $(HEADERSKECCAK) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -DKYBER_K=2 $(SOURCESKECCAK) randombytes.c test_kex.c -o test_kex512
-
-test_kex768: $(SOURCESKECCAK) $(HEADERSKECCAK) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -DKYBER_K=3 $(SOURCESKECCAK) randombytes.c test_kex.c -o test_kex768
-
-test_kex1024: $(SOURCESKECCAK) $(HEADERSKECCAK) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -DKYBER_K=4 $(SOURCESKECCAK) randombytes.c test_kex.c -o test_kex1024
-
 test_vectors512: $(SOURCESKECCAK) $(HEADERSKECCAK) test_vectors.c
 	$(CC) $(CFLAGS) -DKYBER_K=2 $(SOURCESKECCAK) test_vectors.c -o test_vectors512
 
@@ -123,15 +108,6 @@ test_kyber768-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_kyber.c randombyte
 
 test_kyber1024-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_kyber.c randombytes.c
 	$(CC) $(CFLAGS) -D KYBER_90S -DKYBER_K=4 $(SOURCESNINETIES) randombytes.c test_kyber.c -o test_kyber1024-90s
-
-test_kex512-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -D KYBER_90S -DKYBER_K=2 $(SOURCESNINETIES) randombytes.c test_kex.c -o test_kex512-90s
-
-test_kex768-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -D KYBER_90S -DKYBER_K=3 $(SOURCESNINETIES) randombytes.c test_kex.c -o test_kex768-90s
-
-test_kex1024-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_kex.c randombytes.c
-	$(CC) $(CFLAGS) -D KYBER_90S -DKYBER_K=4 $(SOURCESNINETIES) randombytes.c test_kex.c -o test_kex1024-90s
 
 test_vectors512-90s: $(SOURCESNINETIES) $(HEADERSNINETIES) test_vectors.c
 	$(CC) $(CFLAGS) -D KYBER_90S -DKYBER_K=2 $(SOURCESNINETIES) test_vectors.c -o test_vectors512-90s
@@ -174,9 +150,6 @@ clean:
 	-$(RM) -rf test_kyber512
 	-$(RM) -rf test_kyber768
 	-$(RM) -rf test_kyber1024
-	-$(RM) -rf test_kex512
-	-$(RM) -rf test_kex768
-	-$(RM) -rf test_kex1024
 	-$(RM) -rf test_vectors512
 	-$(RM) -rf test_vectors768
 	-$(RM) -rf test_vectors1024
@@ -186,9 +159,6 @@ clean:
 	-$(RM) -rf test_kyber512-90s
 	-$(RM) -rf test_kyber768-90s
 	-$(RM) -rf test_kyber1024-90s
-	-$(RM) -rf test_kex512-90s
-	-$(RM) -rf test_kex768-90s
-	-$(RM) -rf test_kex1024-90s
 	-$(RM) -rf test_vectors512-90s
 	-$(RM) -rf test_vectors768-90s
 	-$(RM) -rf test_vectors1024-90s

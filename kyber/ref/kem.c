@@ -6,6 +6,7 @@
 #include "verify.h"
 #include "symmetric.h"
 #include "randombytes.h"
+#include <string.h>
 
 /*************************************************
 * Name:        crypto_kem_keypair
@@ -25,6 +26,7 @@ int crypto_kem_keypair(uint8_t *pk,
 {
   size_t i;
   indcpa_keypair(pk, sk);
+  
   for(i=0;i<KYBER_INDCPA_PUBLICKEYBYTES;i++)
     sk[i+KYBER_INDCPA_SECRETKEYBYTES] = pk[i];
   hash_h(sk+KYBER_SECRETKEYBYTES-2*KYBER_SYMBYTES, pk, KYBER_PUBLICKEYBYTES);
@@ -50,13 +52,16 @@ int crypto_kem_keypair(uint8_t *pk,
 **************************************************/
 int crypto_kem_enc(uint8_t *ct,
                    uint8_t *ss,
-                   const uint8_t *pk)
+                   const uint8_t *pk,
+                   const uint8_t* res_shake128)
 {
   uint8_t buf[2*KYBER_SYMBYTES];
   /* Will contain key, coins */
   uint8_t kr[2*KYBER_SYMBYTES];
 
-  randombytes(buf, KYBER_SYMBYTES);
+  //msg fijo
+  memcpy(buf, res_shake128, KYBER_SYMBYTES+1);
+  //randombytes(buf, KYBER_SYMBYTES);
   /* Don't release system RNG output */
   hash_h(buf, buf, KYBER_SYMBYTES);
 
