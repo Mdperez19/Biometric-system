@@ -83,23 +83,22 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     //AES 256
-    encrypt(vault, strlen((unsigned char *)vault), ss, ss, ciphertext);
+    int resultado=encrypt(vault, strlen((unsigned char *)vault), ss, ss, ciphertext);
     printf("AES 256: ");
     for (int i = 0; i < tamano_archivo; i++)
     {
         printf("%02x",ciphertext[i]);
     }
-    printf("\n");
+    printf("\n\n");
 
+    printf("%d\n",resultado);
 
-
-    /* ciphertext[tamano_archivo] = '\0';
-    int dlen=decrypt(ciphertext, tamano_archivo/8, ss, ss, vault);
-
+    //descifrado
+    int dlen=decrypt(ciphertext, resultado, ss, ss, vault);
     printf("\t%d\n",dlen);
-    for (int i = 0; i < tamano_archivo; i++)
+    for (int i = 0; i < resultado; i++)
     {
         printf("%c",(int)vault[i]);
-    } */
+    }
     return 0;
 }
