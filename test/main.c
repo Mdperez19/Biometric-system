@@ -96,10 +96,11 @@ int main(int argc, char const *argv[])
 
     // descifrado
     int dlen = decrypt(ciphertext, resultado, ss, ss, vault);
-    printf("\t%d\n", dlen);
+    printf("AES 256 descifrado:\n");
     for (int i = 0; i < resultado; i++)
     {
         printf("%c", (int)vault[i]);
     }
+    printf("\n");
     return 0;
 }
