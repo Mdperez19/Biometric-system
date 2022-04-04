@@ -59,7 +59,7 @@ int crypto_kem_enc(uint8_t *ct,
   /* Will contain key, coins */
   uint8_t kr[2*KYBER_SYMBYTES];
 
-  //msg fijo
+  //msg fijo revisar
   memcpy(buf, res_shake128, KYBER_SYMBYTES);
   //randombytes(buf, KYBER_SYMBYTES);
   /* Don't release system RNG output */

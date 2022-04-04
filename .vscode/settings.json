@@ -3,6 +3,9 @@
         "vault.h": "c",
         "fips202.h": "c",
         "api.h": "c",
-        "randombytes.h": "c"
+        "randombytes.h": "c",
+        "aes.h": "c",
+        "params.h": "c",
+        "opensslaes.h": "c"
     }
 }
