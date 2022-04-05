@@ -43,7 +43,7 @@ En caso de no estar instalado, escribir los siguientes comandos en la terminal:
 sudo apt-get update
 sudo apt-get install make
 ```
-## Instrucciones
+## Instrucciones de compilación y ejecución
 Dirigir a la carpeta test
 
 ```sh
