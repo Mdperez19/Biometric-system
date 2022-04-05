@@ -1,3 +1,7 @@
+export CFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export NISTFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+
 cd ../kyber/ref
 
 make shared
