@@ -1,5 +1,5 @@
 # Biometric-system
-##Instrucciones
+## Instrucciones
 Dirigir a la carpeta test
 
 ```sh
