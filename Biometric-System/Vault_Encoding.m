@@ -117,12 +117,15 @@ Pind=randperm(size(All_Data,1)); %%%% mezcular todos los datos
 Vault = All_Data(Pind,:);                %%% Aplicar permutación
 figure;
 plot(Vault(:,1),Vault(:,2),'v');
+save('resultados/Vault.mat','Vault');
 
-save('resultados/Vault.txt','Vault', '-ascii'); %%%% Fuzzy Vault V=(A,B), A: valores de X de polynomio
+save('resultados/Key_Usuario.mat','Key');
+dlmwrite('resultados/Vault.txt',Vault,'delimiter',' ');
+%save('resultados/Vault.txt','Vault', '-ascii'); %%%% Fuzzy Vault V=(A,B), A: valores de X de polynomio
                                 %%%%                      B: resultado de
                                 %%%%                      polinomio B=f(A)
                                 %%%%   
-save('resultados/KeyUsuario.mat','Key');
+
 
     
 
