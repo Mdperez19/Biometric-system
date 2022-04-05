@@ -26,14 +26,14 @@ display=1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%   Obtener Vault        %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-load('Vault105-1.mat');  %%%% Vault
+load(strcat(ruta_completo,'\resultados\Vault.mat'));  %%%% Vault
 L_Vault=size(Vault,1); % numero de minucias en template
 %
 %  Normalmente, la imagen de huella que genero Template y la imagen de
 %  huella de consulta (query) es diferente, aunque sea misma persona.
 %  Aquí para simplificar está usando la misma imagen
 %
-im = imread(strcat(ruta_completo,'\DB1_B\105_1.tif'));
+im = imread(strcat(ruta_completo,'\platillas_huellas\101_7.tif'));
 
 [S1,S2]=size(im); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,7 +106,7 @@ if N_minucia>FTC
             fprintf('\n');
             %%%%% Averiguar si la llave recuparada es la llave de usuario
             %%%%% que uso en codificación (Vault_Encoding)
-            load('Key_Usuario.mat');
+            load('resultados/Key_Usuario.mat');
             error_de_llave=sum(xor(Key,Key_recuperada));
             if error_de_llave==0
                 fprintf('----- La llave recupero correctamente ---\n');
