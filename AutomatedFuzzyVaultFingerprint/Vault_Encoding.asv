@@ -8,11 +8,7 @@ clear;
 close all;
 clc;
 mkdir('ExpOctubre');
-mkdir('ExpOctubre\Real_XYs');
-mkdir('ExpOctubre\Real_XYs');
-mkdir('ExpOctubre\Chaff_Datas');
-mkdir('ExpOctubre\Vaults');
-mkdir('ExpOctubre\Keys');
+mkdir('ExpOctubre');
 %%
 Imgs= dir(strcat(pwd,'\DB1_B\*.tif'));
 count = 0;
