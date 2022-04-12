@@ -1,7 +1,0 @@
-gcc main.c shake128.c
-a ../Biometric-System/resultados/Vault.txt 32
-
-ffbf138974f92f39b2eed34299c6f20158148b55918f372b8d9830540731dd3e      shake128
-ffbf138974f92f39b2eed34299c6f20158148b55918f372b8d9830540731dd3e      fip202
-ffbf138974f92f39b2eed34299c6f20158148b55918f372b8d9830540731dd3e      cpp
-ffbf138974f92f39b2eed34299c6f20158148b55918f372b8d9830540731dd3e      internet https://emn178.github.io/online-tools/shake_128_checksum.html
