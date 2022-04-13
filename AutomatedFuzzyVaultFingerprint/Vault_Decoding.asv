@@ -28,7 +28,7 @@ display=1;
 %%%%%%%%%%%%%%%%%%%%%%%%%   Obtener Vault        %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load('Vault105-1.mat');  %%%% Vault \ExpOctubre\Vaults\Vault105_1.txt
-load ExpOctubre/Vaults/Vault105-1.mat;
+load('\AutomatedFuzzyVaultFingerprint\ExpOctubre\Vaults\Vault105-1.mat');
 L_Vault=size(Vault,1); % numero de minucias en template
 %
 %  Normalmente, la imagen de huella que genero Template y la imagen de
@@ -108,7 +108,7 @@ if N_minucia>FTC
             fprintf('\n');
             %%%%% Averiguar si la llave recuparada es la llave de usuario
             %%%%% que uso en codificación (Vault_Encoding)
-            load ExpOctubre/Keys/Key_Usuario.mat 
+            load('Key_Usuario.mat');
             error_de_llave=sum(xor(Key,Key_recuperada));
             if error_de_llave==0
                 fprintf('----- La llave recupero correctamente ---\n');
