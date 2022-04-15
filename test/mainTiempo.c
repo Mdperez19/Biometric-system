@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "tiempo.h"
 #include "../AES256/opensslaes.h"
 #include "../kyber/ref/api.h"
 #include "../kyber/ref/fips202.h"
 #include "../kyber/ref/randombytes.h"
 int main(int argc, char const *argv[])
 {
+    double sumwtime, utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
+    uswtime(&utime0, &stime0, &wtime0);//Inicia el conteo
     char nombre[100];
     unsigned char pk[pqcrystals_kyber1024_ref_PUBLICKEYBYTES] = "";
     unsigned char sk[pqcrystals_kyber1024_ref_SECRETKEYBYTES] = "";
@@ -57,7 +60,10 @@ int main(int argc, char const *argv[])
 
     int dlen = decrypt(ciphertext, resultado, ss, ss, vault);
 
-    printf("%6d\t\t%6d\n", resultado, dlen);
+    uswtime(&utime1, &stime1, &wtime1);//Evalua los tiempos de ejecucion
+    printf("%6d\t\t%6d\t\t", resultado, dlen);
+    printf("%.5e\t\t",  wtime1 - wtime0);
+	printf("%.5e\n",  utime1 - utime0);
 
     return 0;
 }

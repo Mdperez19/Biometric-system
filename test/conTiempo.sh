@@ -9,9 +9,9 @@ make shared
 
 cd ../../test
 
-gcc mainTiempo.c "../kyber/ref/libpqcrystals_fips202_ref.so" "../kyber/ref/libpqcrystals_kyber1024_ref.so" "../kyber/ref/randombytes.c" "../AES256/opensslaes.c" -lcrypto -lssl
+gcc mainTiempo.c "../kyber/ref/libpqcrystals_fips202_ref.so" "../kyber/ref/libpqcrystals_kyber1024_ref.so" "../kyber/ref/randombytes.c" "../AES256/opensslaes.c" tiempo.c -lcrypto -lssl
 
-echo "File\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Size \t  Encrypted \t Decrypted" > Results.txt
+echo "File\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Size \t  Encrypted \t Decrypted \t Tiempo real \t CPU" > Results.txt
 for file in ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Vaults/*; do
     ./a.out ${file} >> Results.txt
 done
