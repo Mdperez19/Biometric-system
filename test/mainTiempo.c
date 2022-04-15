@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tiempo.h"
+#include <time.h>
 #include "../AES256/opensslaes.h"
 #include "../kyber/ref/api.h"
 #include "../kyber/ref/fips202.h"
@@ -9,7 +10,10 @@
 int main(int argc, char const *argv[])
 {
     double sumwtime, utime0, stime0, wtime0,utime1, stime1, wtime1; //Variables para medición de tiempos
+    clock_t start_t, end_t, total_t; //para obtener pulsos de reloj
+
     uswtime(&utime0, &stime0, &wtime0);//Inicia el conteo
+    start_t = clock();
     char nombre[100];
     unsigned char pk[pqcrystals_kyber1024_ref_PUBLICKEYBYTES] = "";
     unsigned char sk[pqcrystals_kyber1024_ref_SECRETKEYBYTES] = "";
@@ -30,6 +34,10 @@ int main(int argc, char const *argv[])
         printf("Error opening file :c\n");
         return 2;
     }
+    //obtener substring del nombre
+    memcpy(nombre,&nombre[52],10);
+    nombre[10] = '\0';
+
     // Se posiciona en la posicion 0 y busca el final
     fseek(archivo, 0, SEEK_END);
     unsigned int tamano_archivo = ftell(archivo);
@@ -60,10 +68,11 @@ int main(int argc, char const *argv[])
 
     int dlen = decrypt(ciphertext, resultado, ss, ss, vault);
 
+    end_t = clock(); //termina el conteo
     uswtime(&utime1, &stime1, &wtime1);//Evalua los tiempos de ejecucion
     printf("%6d\t\t%6d\t\t", resultado, dlen);
     printf("%.5e\t\t",  wtime1 - wtime0);
-	printf("%.5e\n",  utime1 - utime0);
-
+	printf("%.5e\t\t",  utime1 - utime0);
+    printf("%6ld\n",  end_t-start_t);
     return 0;
 }
