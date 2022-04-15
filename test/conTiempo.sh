@@ -11,7 +11,9 @@ cd ../../test
 
 gcc mainTiempo.c "../kyber/ref/libpqcrystals_fips202_ref.so" "../kyber/ref/libpqcrystals_kyber1024_ref.so" "../kyber/ref/randombytes.c" "../AES256/opensslaes.c" tiempo.c -lcrypto -lssl
 
-echo "File\t\t Size \t  Encrypted \t Decrypted \t Tiempo real \t CPU \t\t Pulsos de Reloj" > Results.txt
+echo "File\t\t Size \t  Encrypted \t Decrypted \t Tiempo real \t CPU \t\t Pulsos de Reloj \t\t Matlab" > Results.txt
 for file in ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Vaults/*; do
     ./a.out ${file} >> Results.txt
+    sed '5!d' ../AutomatedFuzzyVaultFingerprint/Resultados/tiempo.txt >> Results.txt
+    echo '\n' >> Results.txt
 done

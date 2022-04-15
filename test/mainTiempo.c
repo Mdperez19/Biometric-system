@@ -73,6 +73,7 @@ int main(int argc, char const *argv[])
     printf("%6d\t\t%6d\t\t", resultado, dlen);
     printf("%.5e\t\t",  wtime1 - wtime0);
 	printf("%.5e\t\t",  utime1 - utime0);
-    printf("%6ld\n",  end_t-start_t);
+    printf("%6ld\t\t\t",  end_t-start_t);
+
     return 0;
 }
