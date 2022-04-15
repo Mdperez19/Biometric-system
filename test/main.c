@@ -66,9 +66,10 @@ int main(int argc, char const *argv[])
     }
     printf("shake128: %s\n", res_shake128);
 
+
     //? Kyber
     pqcrystals_kyber1024_ref_keypair(pk, sk);               // KeyGen
-    pqcrystals_kyber1024_ref_enc(ct, ss, pk, res_shake128); // Encapsulate
+    pqcrystals_kyber1024_ref_enc(ct, ss, pk, output); // Encapsulate
 
     /* for(int j=0;j<pqcrystals_kyber1024_ref_CIPHERTEXTBYTES;j++){
         char byte[3];
