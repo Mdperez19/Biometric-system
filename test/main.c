@@ -41,9 +41,6 @@ int main(int argc, char const *argv[])
     // Y otro para el texto cifrado del aes 256
     unsigned char *ciphertext = malloc(tamano_archivo);
 
-    // Se pone todo el arreglo en 0
-    memset(vault, 0, tamano_archivo);
-    memset(output, 0, pqcrystals_kyber1024_BYTES);
     // Se leen y almacenan los bytes del archivo en el arreglo de vault
     fread(vault, 1, tamano_archivo, archivo);
     // Se cierra el archivo a comprimir
