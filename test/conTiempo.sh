@@ -14,6 +14,6 @@ gcc mainTiempo.c "../kyber/ref/libpqcrystals_fips202_ref.so" "../kyber/ref/libpq
 echo "File\t\t Size \t  Encrypted \t Decrypted \t Tiempo real \t CPU \t\t Pulsos de Reloj \t\t Matlab" > Results.txt
 for file in ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Vaults/*; do
     ./a.out ${file} >> Results.txt
-    sed '5!d' ../AutomatedFuzzyVaultFingerprint/Resultados/tiempo.txt >> Results.txt
+    sed '5!d' ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Resultados/tiempo.txt >> Results.txt
     echo '\n' >> Results.txt
 done
