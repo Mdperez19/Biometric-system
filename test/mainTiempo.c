@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
 
     fread(vault, sizeof(char), tamano_archivo, archivo);
 
-    printf("%s\t%6d\t", nombre, tamano_archivo);
+    printf("%s\t%6d\t\t", nombre, tamano_archivo);
     // Se cierra el archivo a comprimir
     fclose(archivo);
 
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
 
     int dlen = decrypt(ciphertext, resultado, ss, ss, vault);
 
-    printf("%6d\t%6d\n", resultado, dlen);
+    printf("%6d\t\t%6d\n", resultado, dlen);
 
     return 0;
 }
