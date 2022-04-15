@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
     {
         char byte[3];
         sprintf(byte, "%02x", (int)output[i]);
-        strcat(res_shake128, byte);
+        strncat(res_shake128, byte,3);
     }
     printf("shake128: %s\n", res_shake128);
 
