@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
     fread(vault, 1, tamano_archivo, archivo);
     // Se cierra el archivo a comprimir
     fclose(archivo);
-
+    fflush(stdin); //clean the buffer to avoid errors
     // file printing
     /* for (int i = 0; i < tamano_archivo; i++)
     {
