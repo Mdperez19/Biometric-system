@@ -13,6 +13,8 @@ mkdir('ExpOctubre\Real_XYs');
 mkdir('ExpOctubre\Chaff_Datas');
 mkdir('ExpOctubre\Vaults');
 mkdir('ExpOctubre\Keys');
+mkdir('ExpOctubre\Resultados');
+Resultados = fopen('ExpOctubre\Resultados\tiempo.txt','wb');
 %%
 Imgs= dir(strcat(pwd,'\DB1_B\*.tif'));
 count = 0;
@@ -22,7 +24,7 @@ for hu=1:length(Imgs)
 % clear;
 % close all;
 % clc;
-
+start = tic;
 im_name = string(Imgs(hu).name(1:5))
 % im_name = '101_5'
 
@@ -179,5 +181,8 @@ csvwrite(strcat('ExpOctubre\Keys\',im_name,'-Key_Usuario.txt'),Key)
 if length(Real_XY) ~= n_minu
     count = count + 1;
 end
+finish = toc(start);
+fprintf(Resultados,'%d\n', finish);
 end
 fprintf('El número de casos de cantidad de minucias no ajustada es: %d', count)
+fclose(Resultados);
