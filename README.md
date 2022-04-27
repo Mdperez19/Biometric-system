@@ -49,7 +49,16 @@ Dirigir a la carpeta test
 ```sh
 cd test
 ```
-Correr el script en la linea de comandos
+Correr el script en la linea de comandos para ejecutar la implementación
 ```sh
 ./script.sh
 ```
+Correr el siguiente script para generar la tabla con las estadisticas de tiempos de ejecución
+```sh
+./conTiempo.sh
+```
+La tabla generada en Results.txt tendrá lo siguiente:
+
+| FILE | Size | Encrypted | Decrypted | Tiempo Real | CPU | Pulsos de Reloj | Matlab |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Nombre del archivo | Tamaño del archivo original en bytes | Tamaño del archivo cifrado en bytes | Tamaño del archivo descifrado en bytes | Tiempo real en segundos | Tiempo de la CPU en segundos | Número de pulsos de reloj | Tiempo real del programa en Matlab |
