@@ -13,7 +13,7 @@ gcc mainTiempo.c "../kyber/ref/libpqcrystals_fips202_ref.so" "../kyber/ref/libpq
 
 i=0
 #echo "File\t\t Size \t  Encrypted \t Decrypted \t CPU \t\t Pulsos de Reloj \t\t Matlab \t\t Tiempo Total \t\t Diferencia" > Results.txt
-echo "File,Size,Encrypted,Decrypted,CPU,Pulsos de Reloj del sistema,Matlab,Pulsos de Reloj de Matlab, Tiempo Total,Diferencia,Diferencia pulsos," > Results.csv
+echo "File,Size,Encrypted,Decrypted,CPU,Pulsos de Reloj del sistema,Matlab,Pulsos de Reloj de Matlab, Tiempo Total, Pulsos de reloj Total,Diferencia,Diferencia pulsos," > Results.csv
 for file in ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Vaults/*; do
     ./a.out ${file} ${i}>> Results.csv
     #sed ${i}'!d' ../AutomatedFuzzyVaultFingerprint/ExpOctubre/Resultados/tiempo.txt >> Results.txt

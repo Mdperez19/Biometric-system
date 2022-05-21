@@ -97,6 +97,7 @@ int main(int argc, char const *argv[])
     printf("%e,",tiempo);
     printf("%lf,",tiempo*CLOCKS_PER_SEC);
     printf("%e,",(wtime1 - wtime0)+tiempo);
+    printf("%e,",((wtime1 - wtime0)+tiempo)*CLOCKS_PER_SEC);
     printf("%e,",fabs(tiempo-(wtime1 - wtime0)));
     printf("%lf\n",fabs((end_t-start_t)-(tiempo*CLOCKS_PER_SEC)));
     return 0;
