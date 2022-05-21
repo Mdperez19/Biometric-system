@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tiempo.h"
+#include <math.h>
 #include <time.h>
 #include "../AES256/opensslaes.h"
 #include "../kyber/ref/api.h"
@@ -96,7 +97,7 @@ int main(int argc, char const *argv[])
     printf("%e,",tiempo);
     printf("%lf,",tiempo*CLOCKS_PER_SEC);
     printf("%e,",(wtime1 - wtime0)+tiempo);
-    printf("%e,",tiempo-(wtime1 - wtime0));
-    printf("%lf\n",(end_t-start_t)-(tiempo*CLOCKS_PER_SEC));
+    printf("%e,",fabs(tiempo-(wtime1 - wtime0)));
+    printf("%lf\n",fabs((end_t-start_t)-(tiempo*CLOCKS_PER_SEC)));
     return 0;
 }
