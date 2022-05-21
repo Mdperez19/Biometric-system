@@ -52,7 +52,8 @@ int main(int argc, char const *argv[])
 
     fread(vault, sizeof(char), tamano_archivo, archivo);
 
-    printf("%s\t%6d\t\t", nombre, tamano_archivo);
+    //printf("%s\t%6d\t\t", nombre, tamano_archivo);
+    printf("%s,%d,", nombre, tamano_archivo);
     // Se cierra el archivo a comprimir
     fclose(archivo);
 
@@ -70,11 +71,16 @@ int main(int argc, char const *argv[])
 
     end_t = clock(); //termina el conteo
     uswtime(&utime1, &stime1, &wtime1);//Evalua los tiempos de ejecucion
-    printf("%6d\t\t%6d\t\t", resultado, dlen);
+    //printf("%6d\t\t%6d\t\t", resultado, dlen);
+    printf("%6d,%d,", resultado, dlen);
     //tiempo user
     //printf("%.5e\t\t",  utime1 - utime0);
-    printf("%.5e\t\t",  wtime1 - wtime0);
-    printf("%6ld\t\t\t",  end_t-start_t);
+
+    /* printf("%.5e\t\t",  wtime1 - wtime0);
+    printf("%6ld\t\t\t",  end_t-start_t); */
+
+    printf("%.5e,",  wtime1 - wtime0);
+    printf("%ld,",  end_t-start_t);
 
     FILE* matlab = fopen("../AutomatedFuzzyVaultFingerprint/ExpOctubre/Resultados/tiempo.txt", "rb");
     float tiempo; 
@@ -82,8 +88,15 @@ int main(int argc, char const *argv[])
     do{ 
         fscanf(matlab,"%e",&tiempo);
     }while(line--);
-    printf("%e\t\t\t",tiempo);
-    printf("%e\n",(wtime1 - wtime0)+tiempo);
 
+    /* printf("%e\t\t",tiempo);
+    printf("%e\t\t",(wtime1 - wtime0)+tiempo);
+    printf("%e\n",tiempo-(wtime1 - wtime0)); */
+
+    printf("%e,",tiempo);
+    printf("%lf,",tiempo*CLOCKS_PER_SEC);
+    printf("%e,",(wtime1 - wtime0)+tiempo);
+    printf("%e,",tiempo-(wtime1 - wtime0));
+    printf("%lf\n",(end_t-start_t)-(tiempo*CLOCKS_PER_SEC));
     return 0;
 }
