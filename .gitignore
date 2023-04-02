@@ -1,5 +1,6 @@
 .vscode/
 *.out
 *.txt
-!AutomatedFuzzyVaultFingerprint/ExpOctubre/Resultados/*
+AutomatedFuzzyVaultFingerprint/ExpOctubre/Resultados/
+AutomatedFuzzyVaultFingerprint/ExpOctubre/Keys/
 !AutomatedFuzzyVaultFingerprint/ExpOctubre/Vaults/*

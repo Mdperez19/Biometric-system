@@ -48,9 +48,9 @@ function [normim, mask, maskind] = ridgesegment(im, blksze, thresh, margin)
     
     %im = imadjust(im);  % this is also an option for normalization
     
-    fun = inline('std(x(:))*ones(size(x))');
-    
-    stddevim = blkproc(im, [blksze blksze], fun);
+    %fun = inline('std(x(:))*ones(size(x))');
+    fun = @(x) std(x(:))*ones(size(x));
+    stddevim = bloqueTest(im, [blksze blksze], fun);
     
     mask = stddevim > thresh;
     

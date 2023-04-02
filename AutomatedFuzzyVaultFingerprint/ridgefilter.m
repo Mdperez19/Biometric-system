@@ -95,9 +95,9 @@ function newim = ridgefilter(im, orient, freq, kx, ky, showfilter)
         end
     end
 
-    if showfilter % Display largest scale filter for inspection
-        figure(7), imshow(filter{1,end},[]); title('filter'); 
-    end
+    %if showfilter % Display largest scale filter for inspection
+     %   figure(7), imshow(filter{1,end},[]); title('filter'); 
+    %end
     
     % Find indices of matrix points greater than maxsze from the image
     % boundary

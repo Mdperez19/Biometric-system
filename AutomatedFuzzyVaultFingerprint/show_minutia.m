@@ -24,21 +24,9 @@
 % June 2011
 
 function show_minutia(im, ridgeEnd, ridgeBifurcation, title)
-
-for h = 1:length(ridgeEnd(:,2))
-    lst(h) = h;
-end
-for l = 1:length(ridgeBifurcation(:,1))
-    lst2(l) = l;
-end
 %display the fingerprint image in the background;
-im  =  insertText(im,[ridgeEnd(:,2),ridgeEnd(:,1)],lst,'BoxColor','yellow','TextColor','white') ;
-im  =  insertText(im,[ridgeBifurcation(:,2),ridgeBifurcation(:,1)],lst2,'BoxColor','green','TextColor','white');
-if nargin == 4
-    show(im, title);
-else
-    show(im);
-end
+
+imshow(im);
 hold on;
 
 %now plot the ridge endings

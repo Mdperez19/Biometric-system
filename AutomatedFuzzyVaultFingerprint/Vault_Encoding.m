@@ -4,19 +4,21 @@
 %     Corresponde Fig. 4 del artículo
 %       "Fingerprint-based Fuzzy Vault: Implementation and Performance
 %
-clear;
+function Vault_Encoding()
 close all;
 clc;
-mkdir('ExpOctubre');
-mkdir('ExpOctubre\Real_XYs');
-mkdir('ExpOctubre\Real_XYs');
-mkdir('ExpOctubre\Chaff_Datas');
-mkdir('ExpOctubre\Vaults');
-mkdir('ExpOctubre\Keys');
-mkdir('ExpOctubre\Resultados');
+%mkdir('ExpOctubre');
+%mkdir('ExpOctubre\Real_XYs');
+%mkdir('ExpOctubre\Real_XYs');
+%mkdir('ExpOctubre\Chaff_Datas');
+%mkdir('ExpOctubre\Vaults');
+%mkdir('ExpOctubre\Keys');
+%mkdir('ExpOctubre\Resultados');
 Resultados = fopen('ExpOctubre\Resultados\tiempo.txt','wb');
 %%
-Imgs= dir(strcat(pwd,'\DB1_B\*.tif'));
+%Imgs= dir(strcat(pwd,'\DB1_B\*.tif'));
+carpeta = 'D:\mdper\Documents\ESCOM\SEXTO\CIC\Criptografia\Biometric-system\AutomatedFuzzyVaultFingerprint';
+Imgs= dir('D:\mdper\Documents\ESCOM\SEXTO\CIC\Criptografia\Biometric-system\AutomatedFuzzyVaultFingerprint\DB1_B\*.tif');
 count = 0;
 for hu=1:length(Imgs)
 
@@ -25,17 +27,17 @@ for hu=1:length(Imgs)
 % close all;
 % clc;
 start = tic;
-im_name = string(Imgs(hu).name(1:5))
+im_name = string(Imgs(hu).name(1:5));
 % im_name = '101_5'
 
 %%%%%
-ruta_completo=pwd;
+ruta_completo=carpeta;
 %%drive=ruta_completo(1:3);
 %%%%%%%% Parametros %%%%%
 
 delta1=25;  %distancia mínima que pueden tener dos minucias
 beta=0.2*pi/180;  % ec. (1) radian 0.2 grado --> 0.2*pi/180 radian
-FTC=10; % número mínimo de minucias requerido después de filtros
+FTC=20; % número mínimo de minucias requerido después de filtros
 NChaff=50; %%%%%% Número de puntos falsos
 %%%%%%%%% Número de bits de cuantificación 
 NB_UVT=[6,6,4];   %%% Alto  0 -- 63
@@ -43,7 +45,7 @@ semilla = 1; %% semilla parta generar llave%%%%%%
 semilla_perm=2; %% semilla para permutación de de datos de Vault -- mezclar datos real y chaffpoints
 n_degree = 8; % El orden de polynomio P(x) %%%%%% Polinomio %%%%%%
 pol=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1]; %% Polinomio que usa CRC
-display = 0;
+display = 1;
 n_minu = 23;
 % im_name = '105_1'
 im = imread(strcat(ruta_completo,'\DB1_B\', im_name,'.tif'));
@@ -63,7 +65,6 @@ im = imread(strcat(ruta_completo,'\DB1_B\', im_name,'.tif'));
 % 3. Eliminar minucias muy cercanas a otras minucias
 
 [template, ridgeEnd, ridgeBif, normim] = generar_template(im, delta1, beta, n_minu, display);
-
 % El cuarto parametro de la funcion anterior -- generar_template -- es para
 % ajustar a un número N de minucias que necesites obtener y actuaran como 
 % los puintos genuinos. Sin embargo, con ese parametro se desprecián las 
@@ -104,7 +105,7 @@ end
      Chaf=concatenate(Q_Chaff,NB_UVT);
      
      fprintf('Dimensiones de Temp: [%d,%d] \n', size(Temp))
-
+     save(strcat('ExpOctubre\Templates\','Template',im_name,'.txt'),'Temp', '-ascii');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%        CRC coding       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   Generar lleve nueva con capacidad de detección de error 
@@ -176,7 +177,12 @@ save(strcat('ExpOctubre\Vaults\','Vault',im_name,'.txt'),'Vault', '-ascii'); %%%
                                 %%%%                      polinomio B=f(A)
                                 %%%%   
 % save(strcat('Keys\',im_name,'-Key_Usuario.txt'),'Key', '-ascii');
-csvwrite(strcat('ExpOctubre\Keys\',im_name,'-Key_Usuario.txt'),Key)
+%csvwrite(strcat('ExpOctubre\Keys\',im_name,'-Key_Usuario.txt'),Key)
+nombre_archivo = strcat('ExpOctubre\Keys\',im_name,'-Key_Usuario.csv');
+KeyArchivo = fopen(nombre_archivo,'wb');
+for llaves=1:length(Key)
+    fprintf(KeyArchivo,"%d,",llaves);
+end
 
 if length(Real_XY) ~= n_minu
     count = count + 1;
@@ -186,3 +192,4 @@ fprintf(Resultados,'%d\n', finish);
 end
 fprintf('El número de casos de cantidad de minucias no ajustada es: %d', count)
 fclose(Resultados);
+end
