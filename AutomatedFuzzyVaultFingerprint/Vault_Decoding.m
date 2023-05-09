@@ -1,7 +1,7 @@
 %
 %    Fuzzy Vault Decoding
 %
-%     Corresponde Fig. 5 del artículo
+%     Corresponde Fig. 5 del artï¿½culo
 %       "Fingerprint-based Fuzzy Vault: Implementation and Performance
 %
 
@@ -13,12 +13,12 @@ clc;
 ruta_completo=pwd;
 %%%%%%%% Parametros %%%%%
 
-delta1=25;  %distancia mínima que pueden tener dos minucias
-delta2 =3;
+delta1=20;  %distancia mÃ­nima que pueden tener dos minucias
+delta2 =10;
 beta=0.2*pi/180;  % ec. (1) radian 0.2 grado --> 0.2*pi/180 radian
-FTC=20; % número mínimo de minucias requerido después de filtros
-NChaff=50; %%%%%% Número de puntos falsos
-%%%%%%%%% Número de bits de cuantificación 
+FTC=5; % nÃºmero mÃ­nimo de minucias requerido despuÃ©s de filtros
+NChaff=2; %%%%%% NÃºmero de puntos falsos
+%%%%%%%%% NÃºmero de bits de cuantificaciÃ³n 
 NB_UVT=[6,6,4];   %%% Alto  0 -- 63
 N_Digree = 8;
 q=2^16+1;    %%% 
@@ -38,7 +38,7 @@ for archivoVault = 1:length(archivosVaults)
     %
     %  Normalmente, la imagen de huella que genero Template y la imagen de
     %  huella de consulta (query) es diferente, aunque sea misma persona.
-    %  Aquí para simplificar está usando la misma imagen
+    %  Aquï¿½ para simplificar estï¿½ usando la misma imagen
     %
     carpetaHuellas = dir('D:\mdper\Documents\ESCOM\SEXTO\CIC\Criptografia\Biometric-system\AutomatedFuzzyVaultFingerprint\DB1_B\');
     rutaCarpetaHuellas = carpetaHuellas.folder;
@@ -46,7 +46,7 @@ for archivoVault = 1:length(archivosVaults)
     
     for archivoHuella = 1:length(archivosHuellas)
         disp(archivosHuellas(archivoHuella).name)
-        Resultados = fopen(fullfile('ExpOctubre', 'Resultados', strcat(archivosHuellas(archivoHuella).name(1:5), '.txt')), 'a+');
+        Resultados = fopen(fullfile('ExpOctubre', 'Resultados/7', strcat(archivosHuellas(archivoHuella).name(1:5), '.txt')), 'a+');
         rutaHuella = fullfile(rutaCarpetaHuellas, archivosHuellas(archivoHuella).name);
         im = imread(rutaHuella);
         
@@ -63,7 +63,7 @@ for archivoVault = 1:length(archivosVaults)
         %%%%%%%%%%%% Filtrar Chaff point usando datos de minucia de consulta %%%%%%
         %%%%%%%%%%%%% Minucia Decoding & Coarse Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-        %%%%%%%%%%%%%% Cuantificación  de template y Chaff point %%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%% Cuantificaciï¿½n  de template y Chaff point %%%%%%%%%%%%%%%%%%
             Q_minucia=Quant(minucia,NB_UVT,[S1,S2,pi]);
          
         %%%%%%% El valor de X de Vault, obtener datos de minucia (u,v,theta) %%%%
@@ -76,12 +76,14 @@ for archivoVault = 1:length(archivosVaults)
         %%%%%%%%%%%%%%%%%%%%%%  Lagrange Interpolation %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
             if L_Real < N_Digree+1  %%% Numero de datos reales de minucia no alcanzo para resolver Lagrange
-                disp ('########  Falla de Autenticación ########');
+                disp ('########  Falla de Autenticaciï¿½n ########');
+                fprintf(Resultados,'%d\n', 0);
+                fclose(Resultados);
             else
                 
                 Real_Data=Vault(Indice_Vault,:);
             
-            %%% Generar posible combinación de N_Digree+1 datos de Real_Data %%%%%%
+            %%% Generar posible combinaciï¿½n de N_Digree+1 datos de Real_Data %%%%%%
             
                 Comb=Generar_Comb(L_Real,N_Digree+1);
                 flag_key=0; % flag_key=0: no se pudo recuparar llave
@@ -113,9 +115,11 @@ for archivoVault = 1:length(archivosVaults)
                 if flag_key==0
                     disp('%%% hay que repetir la captura de huella %%%');
                     fprintf(Resultados,'%d\n', 0);
+                    fclose(Resultados);
                     disp(0)
                 else
                     fprintf(Resultados,'%d\n', 1);
+                    fclose(Resultados);
                     disp(1)
                     %figure;
                     %plot(X_select, Y_select,'r*');
@@ -124,11 +128,12 @@ for archivoVault = 1:length(archivosVaults)
                     %fprintf('%3d',Key_recuperada);
                     %fprintf('\n');
                     %%%%% Averiguar si la llave recuparada es la llave de usuario
-                    %%%%% que uso en codificación (Vault_Encoding)
+                    %%%%% que uso en codificaciï¿½n (Vault_Encoding)
                     load('Key_Usuario.mat');
                     error_de_llave=sum(xor(Key,Key_recuperada));
                     if error_de_llave==0
                         fprintf('----- La llave recupero correctamente ---\n');
+                        
                     end
                     
                 end
@@ -137,6 +142,7 @@ for archivoVault = 1:length(archivosVaults)
         else    
             disp(' %%%% hay que repetir la captura de huella2'); 
             fprintf(Resultados,'%d\n', 0);
+            fclose(Resultados);
         end
     end
        

@@ -1,7 +1,7 @@
 %
 %   Vault Encoding 
 %
-%     Corresponde Fig. 4 del artículo
+%     Corresponde Fig. 4 del artï¿½culo
 %       "Fingerprint-based Fuzzy Vault: Implementation and Performance
 %
 function Vault_Encoding()
@@ -14,7 +14,7 @@ clc;
 %mkdir('ExpOctubre\Vaults');
 %mkdir('ExpOctubre\Keys');
 %mkdir('ExpOctubre\Resultados');
-Resultados = fopen('ExpOctubre\Resultados\tiempo.txt','wb');
+%Resultados = fopen('ExpOctubre\Resultados\tiempo.txt','wb');
 %%
 %Imgs= dir(strcat(pwd,'\DB1_B\*.tif'));
 carpeta = 'D:\mdper\Documents\ESCOM\SEXTO\CIC\Criptografia\Biometric-system\AutomatedFuzzyVaultFingerprint';
@@ -26,7 +26,7 @@ for hu=1:length(Imgs)
 % clear;
 % close all;
 % clc;
-start = tic;
+
 im_name = string(Imgs(hu).name(1:5));
 % im_name = '101_5'
 
@@ -35,18 +35,18 @@ ruta_completo=carpeta;
 %%drive=ruta_completo(1:3);
 %%%%%%%% Parametros %%%%%
 
-delta1=25;  %distancia mínima que pueden tener dos minucias
+delta1=20;  %distancia mÃ­nima que pueden tener dos minucias
 beta=0.2*pi/180;  % ec. (1) radian 0.2 grado --> 0.2*pi/180 radian
-FTC=20; % número mínimo de minucias requerido después de filtros
-NChaff=50; %%%%%% Número de puntos falsos
-%%%%%%%%% Número de bits de cuantificación 
+FTC=3; % nÃºmero mÃ­nimo de minucias requerido despuÃ©s de filtros
+NChaff=5; %%%%%% NÃºmero de puntos falsos
+%%%%%%%%% NÃºmero de bits de cuantificaciÃ³n 
 NB_UVT=[6,6,4];   %%% Alto  0 -- 63
 semilla = 1; %% semilla parta generar llave%%%%%%
-semilla_perm=2; %% semilla para permutación de de datos de Vault -- mezclar datos real y chaffpoints
+semilla_perm=2; %% semilla para permutaciÃ³n de de datos de Vault -- mezclar datos real y chaffpoints
 n_degree = 8; % El orden de polynomio P(x) %%%%%% Polinomio %%%%%%
 pol=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1]; %% Polinomio que usa CRC
 display = 1;
-n_minu = 23;
+n_minu = 10;
 % im_name = '105_1'
 im = imread(strcat(ruta_completo,'\DB1_B\', im_name,'.tif'));
 %im = imread('F:\Biometricas_Watermarking\DB1_B\106_7.tif');
@@ -55,24 +55,24 @@ im = imread(strcat(ruta_completo,'\DB1_B\', im_name,'.tif'));
 %im = imread('H:\Biometricas_Watermarking\DB1_B\103_7.tif');
 %im = imread('H:\Biometricas_Watermarking\DB1_B\109_6.tif');
 
-[S1,S2]=size(im); %%%% El tamaño de la imagen
+[S1,S2]=size(im); %%%% El tamaï¿½o de la imagen
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%% Generación de template %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% Generaciï¿½n de template %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% 1. Extracción de minucias
+% 1. Extracciï¿½n de minucias
 % 2. Eliminar minucias de mala calidad 
 % 3. Eliminar minucias muy cercanas a otras minucias
 
 [template, ridgeEnd, ridgeBif, normim] = generar_template(im, delta1, beta, n_minu, display);
 % El cuarto parametro de la funcion anterior -- generar_template -- es para
-% ajustar a un número N de minucias que necesites obtener y actuaran como 
-% los puintos genuinos. Sin embargo, con ese parametro se desprecián las 
-% métricas de calidad de minucias. Dependiendo de la calidad de la imagen
-% de la huella, pero recomendable que si se usa, este parámetro sea mayor a
+% ajustar a un nï¿½mero N de minucias que necesites obtener y actuaran como 
+% los puintos genuinos. Sin embargo, con ese parametro se despreciï¿½n las 
+% mï¿½tricas de calidad de minucias. Dependiendo de la calidad de la imagen
+% de la huella, pero recomendable que si se usa, este parï¿½metro sea mayor a
 % 10,15 y menor a 30, pero depende de las imagenes con las que se use.
-% Si no se quiere ajustar a ningun número N de minucias se debe poner ese 
-% parametro como 0 (cero) y el número de minucias que se obtendra será las 
+% Si no se quiere ajustar a ningun nï¿½mero N de minucias se debe poner ese 
+% parametro como 0 (cero) y el nï¿½mero de minucias que se obtendra serï¿½ las 
 % que se identifiquen con la suficiente calidad.
 
 % STemp = ['Dimensiones de template: ', size(template)];
@@ -80,7 +80,7 @@ im = imread(strcat(ruta_completo,'\DB1_B\', im_name,'.tif'));
 
 NT_final=size(template,1);
 
-fprintf(' El número de minucias válido es %d \n',NT_final);
+fprintf(' El nï¿½mero de minucias vï¿½lido es %d \n',NT_final);
 
 if NT_final>FTC  
     
@@ -92,7 +92,7 @@ else
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% Cuantificación  de template y Chaff point %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Cuantificaciï¿½n  de template y Chaff point %%%%%%%%%%%%%%%%%%
  
      Q_template=Quant(template,NB_UVT,[S1,S2,pi]);
      Q_Chaff=Quant(Chaff_points,NB_UVT,[S1,S2,pi]);
@@ -100,15 +100,15 @@ end
      fprintf('Dimensiones de Q_template: [%d,%d] \n', size(Q_template))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Concatenación de tres valores posición (x,y) de minucia y angulo %%%%%%
+%%% Concatenaciï¿½n de tres valores posiciï¿½n (x,y) de minucia y angulo %%%%%%
      Temp=concatenate(Q_template,NB_UVT);
      Chaf=concatenate(Q_Chaff,NB_UVT);
      
      fprintf('Dimensiones de Temp: [%d,%d] \n', size(Temp))
-     save(strcat('ExpOctubre\Templates\','Template',im_name,'.txt'),'Temp', '-ascii');
+     %save(strcat('ExpOctubre\Templates\','Template',im_name,'.txt'),'Temp', '-ascii');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%        CRC coding       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%   Generar lleve nueva con capacidad de detección de error 
+%%%   Generar lleve nueva con capacidad de detecciï¿½n de error 
 
 L=n_degree*16;
 rng(semilla);  %%%%%%% seed =llave --- llave de la persona 
@@ -142,7 +142,7 @@ fprintf('Dimensiones de Coef: [%d,%d] \n', size(Coef))
 fprintf('Dimensiones de Real_XY: [%d,%d] \n', size(Real_XY))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%% Generar Chaff pointos aleatoriamente         %%%%%%%%
-%%%%%%%  Pero cuidando que no se coincide con la proyección de polinomio %%  
+%%%%%%%  Pero cuidando que no se coincide con la proyecciï¿½n de polinomio %%  
     
  Z=randi(2^16,NChaff, 1); 
  Chaff_Data =[Chaf',Z];
@@ -160,14 +160,14 @@ fprintf('Dimensiones de Real_XY: [%d,%d] \n', size(Real_XY))
 % plot(Chaff_Data(:,1),Chaff_Data(:,2),'co');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%      Construcción de Vault                %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%      Construcciï¿½n de Vault                %%%%%%%%%%%%
 
 All_Data=[Real_XY;Chaff_Data];   %%%% Real data + Chaff data
 save(strcat('ExpOctubre\Real_XYs\','Real_XY',im_name,'.txt'),'Real_XY', '-ascii');
 save(strcat('ExpOctubre\Chaff_Datas\','Chaff_Data',im_name,'.txt'),'Chaff_Data', '-ascii');
 rng(semilla_perm);
 Pind=randperm(size(All_Data,1)); %%%% mezcular todos los datos
-Vault = All_Data(Pind,:);                %%% Aplicar permutación
+Vault = All_Data(Pind,:);                %%% Aplicar permutaciï¿½n
 fprintf('Dimensiones de Vault: [%d,%d] \n', size(Vault))
 % figure;
 % plot(Vault(:,1),Vault(:,2),'v');
@@ -187,9 +187,9 @@ end
 if length(Real_XY) ~= n_minu
     count = count + 1;
 end
-finish = toc(start);
-fprintf(Resultados,'%d\n', finish);
+%finish = toc(start);
+%fprintf(Resultados,'%d\n', finish);
 end
-fprintf('El número de casos de cantidad de minucias no ajustada es: %d', count)
-fclose(Resultados);
+fprintf('El nï¿½mero de casos de cantidad de minucias no ajustada es: %d', count)
+%fclose(Resultados);
 end
